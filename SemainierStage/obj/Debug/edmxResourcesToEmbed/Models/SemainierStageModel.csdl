@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SemainierStageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Etudiant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="User_Id" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="EtudiantSessions" Relationship="Self.FK_EtudiantSession_ToEtudiant" FromRole="Etudiant" ToRole="EtudiantSession" />
+    <NavigationProperty Name="Taches" Relationship="Self.FK_Taches_ToEtudiant" FromRole="Etudiant" ToRole="Tache" />
+  </EntityType>
+  <EntityType Name="EtudiantSession">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Session_ID" Type="Int32" Nullable="false" />
+    <Property Name="Etudiant_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Etudiant" Relationship="Self.FK_EtudiantSession_ToEtudiant" FromRole="EtudiantSession" ToRole="Etudiant" />
+    <NavigationProperty Name="Session" Relationship="Self.FK_EtudiantSession_ToSession" FromRole="EtudiantSession" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EtudiantSessions" Relationship="Self.FK_EtudiantSession_ToSession" FromRole="Session" ToRole="EtudiantSession" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tache">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Etudiant_ID" Type="Int32" Nullable="false" />
+    <Property Name="NombreHeures" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Etudiant" Relationship="Self.FK_Taches_ToEtudiant" FromRole="Tache" ToRole="Etudiant" />
+  </EntityType>
+  <Association Name="FK_EtudiantSession_ToEtudiant">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+    <End Role="EtudiantSession" Type="Self.EtudiantSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EtudiantSession">
+        <PropertyRef Name="Etudiant_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Taches_ToEtudiant">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+    <End Role="Tache" Type="Self.Tache" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tache">
+        <PropertyRef Name="Etudiant_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EtudiantSession_ToSession">
+    <End Role="Session" Type="Self.Session" Multiplicity="1" />
+    <End Role="EtudiantSession" Type="Self.EtudiantSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EtudiantSession">
+        <PropertyRef Name="Session_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SemainierStageEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Etudiants" EntityType="Self.Etudiant" />
+    <EntitySet Name="EtudiantSessions" EntityType="Self.EtudiantSession" />
+    <EntitySet Name="Sessions" EntityType="Self.Session" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Taches" EntityType="Self.Tache" />
+    <AssociationSet Name="FK_EtudiantSession_ToEtudiant" Association="Self.FK_EtudiantSession_ToEtudiant">
+      <End Role="Etudiant" EntitySet="Etudiants" />
+      <End Role="EtudiantSession" EntitySet="EtudiantSessions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Taches_ToEtudiant" Association="Self.FK_Taches_ToEtudiant">
+      <End Role="Etudiant" EntitySet="Etudiants" />
+      <End Role="Tache" EntitySet="Taches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EtudiantSession_ToSession" Association="Self.FK_EtudiantSession_ToSession">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="EtudiantSession" EntitySet="EtudiantSessions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
