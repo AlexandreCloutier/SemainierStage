@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SemainierStage.Models;
 using SemainierStage.ViewModels;
+using System.Collections;
 
 namespace SemainierStage.Controllers
 {
@@ -24,7 +25,21 @@ namespace SemainierStage.Controllers
             };
             return View(etudiantsIndexViewModel);
         }
+        // postback-> afficher la liste des étudiants de la session passée en ID
+        [HttpPost]
+        public ActionResult Index(int? SessionId, int? EtudiantSelectionneId)
+        {
+            ModelState.Clear();
+            EtudiantsIndexViewModel etudiantsIndexViewModel = new EtudiantsIndexViewModel
+            {
 
+                session = RetrouverToutesLesSessions(),
+                etudiant = RetrouverEtudiantSelonSessions(SessionId),
+                sessionID = SessionId,
+                etudiantSelectionne = RetrouverEtudiantParId(EtudiantSelectionneId)
+            };
+            return View(etudiantsIndexViewModel);
+        }
         // GET: Etudiants/Details/5
         public ActionResult Details(int? id)
         {
@@ -132,6 +147,24 @@ namespace SemainierStage.Controllers
         protected IEnumerable<Session> RetrouverToutesLesSessions()
         {
             return db.Sessions;
+        }
+        protected IEnumerable<Etudiant> RetrouverEtudiantSelonSessions(int? id)
+        {
+            return (from e in db.EtudiantSessions
+                    where e.Session_ID == id
+                    select e.Etudiant).Distinct();
+        }
+        protected IEnumerable<Tache> RetrouverTachesDeLEtudiant(int? id)
+        {
+            return from t in db.Taches
+                   where t.Etudiant_ID == id
+                   select t; 
+        }
+        protected Etudiant RetrouverEtudiantParId(int? id)
+        {
+            return (from e in db.Etudiants
+                    where e.Id == id
+                    select e).FirstOrDefault();
         }
     }
 }
