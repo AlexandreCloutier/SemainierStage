@@ -10,5 +10,9 @@ namespace SemainierStage.ViewModels
     {
         public IEnumerable<Session> session { get; set; }
         public IEnumerable<Etudiant> etudiant { get; set; }
+        public Etudiant etudiantSelectionne { get; set; }
+        public IEnumerable<Tache> tacheDeLEtudiant { get; set; }
+
+        public int? sessionID { get; set; }
     }
 }
