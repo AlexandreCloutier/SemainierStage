@@ -158,6 +158,7 @@ namespace SemainierStage.Controllers
         {
             return from t in db.Taches
                    where t.Etudiant_ID == id
+                   orderby t.Date
                    select t; 
         }
         protected Etudiant RetrouverEtudiantParId(int? id)

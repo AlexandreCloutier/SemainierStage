@@ -11,13 +11,16 @@ namespace SemainierStage.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Tache
     {
         public int Id { get; set; }
         public string Commentaire { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", NullDisplayText = "Aucune date")]
         public System.DateTime Date { get; set; }
         public int Etudiant_ID { get; set; }
+        [Display(Name = "Nombre d'heures allouées")]
         public decimal NombreHeures { get; set; }
     
         public virtual Etudiant Etudiant { get; set; }

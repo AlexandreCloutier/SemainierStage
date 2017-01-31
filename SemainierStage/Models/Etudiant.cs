@@ -11,7 +11,8 @@ namespace SemainierStage.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Etudiant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +25,10 @@ namespace SemainierStage.Models
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
+
+        [Display(Name = "Courriel")]
         public string Email { get; set; }
+        [Display(Name = "Identifiant d'utilisateur")]
         public string User_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

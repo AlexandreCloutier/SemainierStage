@@ -32,7 +32,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.etudiant.FirstOrDefault().Nom )
+                @Html.DisplayNameFor(model => model.etudiant.FirstOrDefault().Nom)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.etudiant.FirstOrDefault().Prenom )
@@ -91,7 +91,7 @@
                         @Html.DisplayNameFor(model => model.tacheDeLEtudiant.FirstOrDefault().Date)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.tacheDeLEtudiant.FirstOrDefault().Date)
+                        @Html.DisplayNameFor(model => model.tacheDeLEtudiant.FirstOrDefault().NombreHeures )
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.tacheDeLEtudiant.FirstOrDefault().Commentaire)
@@ -109,7 +109,7 @@
                             @Html.DisplayFor(modelItem => item.Commentaire)
                         </th>
                     </tr>
-                }
+                   }
             </table>
             }
         }
