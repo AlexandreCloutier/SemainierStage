@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SemainierStage.Models;
+using System.Diagnostics;
 
 namespace SemainierStage.Controllers
 {
@@ -76,11 +77,12 @@ namespace SemainierStage.Controllers
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            Debug.WriteLine(User.IsInRole("Admin"));
             switch (result)
             {
                 case SignInStatus.Success:
                     if (User.IsInRole("Admin")){
-                        return RedirectToAction("Index", "Taches");
+                        return RedirectToAction("Index", "Etudiants");
                     }
                     else
                     {
