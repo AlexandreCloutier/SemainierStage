@@ -77,11 +77,12 @@ namespace SemainierStage.Controllers
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            Debug.WriteLine(User.IsInRole("Admin"));
+            var user = await UserManager.FindByNameAsync(model.UserName);
+            var userId = user.Id;
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (User.IsInRole("Admin")){
+                    if (UserManager.IsInRole(userId,"Admin")){
                         return RedirectToAction("Index", "Etudiants");
                     }
                     else
