@@ -82,7 +82,8 @@ namespace SemainierStage.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (UserManager.IsInRole(userId,"Admin")){
+                    if (UserManager.IsInRole(userId,"Admin"))
+                    {
                         return RedirectToAction("Index", "Etudiants");
                     }
                     else
