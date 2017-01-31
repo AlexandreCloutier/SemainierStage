@@ -12,5 +12,18 @@ namespace SemainierStage.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult Index()
+        //{
+        //    if (User.IsInRole("Admin"))
+        //    {
+        //        return RedirectToAction("Index", "Etudiants");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index", "Taches");
+        //    }
+        //}
     }
 }
