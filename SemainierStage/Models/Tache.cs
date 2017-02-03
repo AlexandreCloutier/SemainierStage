@@ -20,6 +20,7 @@ namespace SemainierStage.Models
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", NullDisplayText = "Aucune date")]
         public System.DateTime Date { get; set; }
         public int Etudiant_ID { get; set; }
+        [Required(ErrorMessage ="Le nombre d'heure allouées doit être un nombre sans virgules.")]
         [Display(Name = "Nombre d'heures allouées")]
         public decimal NombreHeures { get; set; }
     
