@@ -79,7 +79,7 @@ namespace SemainierStage.Controllers
         }
 
         // GET: Etudiants/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditEtudiant(int? id)
         {
             if (id == null)
             {
@@ -92,13 +92,25 @@ namespace SemainierStage.Controllers
             }
             return View(etudiant);
         }
-
+        public ActionResult EditTache(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tache tache = db.Taches.Find(id);
+            if (tache == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tache);
+        }
         // POST: Etudiants/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nom,Prenom,Email,User_Id")] Etudiant etudiant)
+        public ActionResult EditEtudiant([Bind(Include = "Id,Nom,Prenom,Email,User_Id")] Etudiant etudiant)
         {
             if (ModelState.IsValid)
             {
@@ -108,9 +120,24 @@ namespace SemainierStage.Controllers
             }
             return View(etudiant);
         }
+        // POST: Taches/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTache([Bind(Include = "Id,Commentaire,Date,Etudiant_ID,NombreHeures")] Tache tache)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(tache).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(tache);
+        }
 
         // GET: Etudiants/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteEtudiant(int? id)
         {
             if (id == null)
             {
@@ -125,12 +152,38 @@ namespace SemainierStage.Controllers
         }
 
         // POST: Etudiants/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteEtudiant")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmedEtudiant(int id)
         {
             Etudiant etudiant = db.Etudiants.Find(id);
             db.Etudiants.Remove(etudiant);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Taches/Delete/5
+        public ActionResult DeleteTache(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tache tache = db.Taches.Find(id);
+            if (tache == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tache);
+        }
+
+        // POST: Taches/Delete/5
+        [HttpPost, ActionName("DeleteTache")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedTache(int id)
+        {
+            Tache tache = db.Taches.Find(id);
+            db.Taches.Remove(tache);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

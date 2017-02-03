@@ -331,10 +331,12 @@
     <Content Include="Views\Taches\Edit.cshtml" />
     <Content Include="Views\Taches\Index.cshtml" />
     <Content Include="Views\Etudiants\Create.cshtml" />
-    <Content Include="Views\Etudiants\Delete.cshtml" />
+    <Content Include="Views\Etudiants\DeleteEtudiant.cshtml" />
     <Content Include="Views\Etudiants\Details.cshtml" />
-    <Content Include="Views\Etudiants\Edit.cshtml" />
+    <Content Include="Views\Etudiants\EditEtudiant.cshtml" />
     <Content Include="Views\Etudiants\Index.cshtml" />
+    <Content Include="Views\Etudiants\EditTache.cshtml" />
+    <Content Include="Views\Etudiants\DeleteTache.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\" />

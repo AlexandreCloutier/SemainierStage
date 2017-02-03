@@ -1,0 +1,57 @@
+﻿@model SemainierStage.Models.Tache
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Supprimer</h2>
+
+<h3>Êtes-vous sur de vouloir supprimer cette tâche ?</h3>
+<div>
+    <h4>Tâche</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreHeures)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreHeures)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etudiant.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etudiant.Nom)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            @Html.ActionLink("Retour", "Index")
+        </div>
+    }
+</div>

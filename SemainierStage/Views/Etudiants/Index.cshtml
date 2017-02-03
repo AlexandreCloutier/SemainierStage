@@ -62,7 +62,7 @@
                     @Html.DisplayFor(modelItem => item.User_Id)
                 </td>
                 <td>
-                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) | @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Modifier", "EditEtudiant", new { id = item.Id }) | @Html.ActionLink("Supprimer", "DeleteEtudiant", new { id = item.Id })
                 </td>
                 <td>
                     @using (Html.BeginForm())
@@ -96,18 +96,22 @@
                     <th>
                         @Html.DisplayNameFor(model => model.tacheDeLEtudiant.FirstOrDefault().Commentaire)
                     </th>
-                    @foreach (var item in Model.etudiantSelectionne.Taches)
+                    <th></th>
+                    @foreach (var item in Model.etudiantSelectionne.Taches.OrderBy(i => i.Date))
                     {
                     <tr>
-                        <th>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Date)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.NombreHeures)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Commentaire)
-                        </th>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modifier", "EditTache", new { id = item.Id }) | @Html.ActionLink("Supprimer", "DeleteTache", new { id = item.Id })
+                        </td>
                     </tr>
                    }
             </table>
